@@ -1,0 +1,25 @@
+{
+  "name": "ivanisation",
+  "version": "1.0.0",
+  "description": "Ivan Parvaresh's Personal Portfolio Website",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 8000",
+    "dev": "live-server",
+    "build": "echo 'Build script - customize as needed'"
+  },
+  "keywords": [
+    "portfolio",
+    "personal-website",
+    "developer"
+  ],
+  "author": "Ivan Parvaresh",
+  "license": "MIT",
+  "devDependencies": {
+    "live-server": "^1.2.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ivanparvaresh/ivanisation.git"
+  }
+}
