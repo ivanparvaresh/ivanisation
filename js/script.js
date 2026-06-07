@@ -4,66 +4,23 @@
 
 const hamburger = document.querySelector('.hamburger');
 const navMenu = document.querySelector('.nav-menu');
+const navLinks = document.querySelectorAll('.nav-link');
 
 if (hamburger) {
     hamburger.addEventListener('click', () => {
         navMenu.classList.toggle('active');
-        hamburger.classList.toggle('active');
     });
 }
 
-// Close mobile menu when a nav link is clicked
-const navLinks = document.querySelectorAll('.nav-link');
+// Close menu when clicking a link
 navLinks.forEach(link => {
     link.addEventListener('click', () => {
         navMenu.classList.remove('active');
-        hamburger.classList.remove('active');
     });
 });
 
 // ===========================
-// SMOOTH SCROLL BEHAVIOR
-// ===========================
-
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
-    });
-});
-
-// ===========================
-// INTERSECTION OBSERVER FOR ANIMATIONS
-// ===========================
-
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -100px 0px'
-};
-
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.style.animation = 'fadeInUp 0.8s ease forwards';
-            observer.unobserve(entry.target);
-        }
-    });
-}, observerOptions);
-
-// Observe all project cards and skill categories
-document.querySelectorAll('.project-card, .skill-category, .about-content').forEach(el => {
-    el.style.opacity = '0';
-    observer.observe(el);
-});
-
-// ===========================
-// ACTIVE NAV LINK HIGHLIGHTING
+// SMOOTH SCROLL & ACTIVE LINK
 // ===========================
 
 window.addEventListener('scroll', () => {
@@ -72,6 +29,7 @@ window.addEventListener('scroll', () => {
     document.querySelectorAll('section').forEach(section => {
         const sectionTop = section.offsetTop;
         const sectionHeight = section.clientHeight;
+        
         if (pageYOffset >= sectionTop - 200) {
             current = section.getAttribute('id');
         }
@@ -86,85 +44,30 @@ window.addEventListener('scroll', () => {
 });
 
 // ===========================
-// FORM VALIDATION (if form exists)
+// SCROLL ANIMATIONS
 // ===========================
 
-const form = document.querySelector('form');
-if (form) {
-    form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        // Add your form submission logic here
-        console.log('Form submitted');
-    });
-}
+const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -100px 0px'
+};
 
-// ===========================
-// PAGE LOAD ANIMATION
-// ===========================
-
-window.addEventListener('load', () => {
-    document.body.style.opacity = '1';
-});
-
-// ===========================
-// SCROLL TO TOP BUTTON
-// ===========================
-
-function createScrollToTopButton() {
-    const button = document.createElement('button');
-    button.innerHTML = '↑';
-    button.className = 'scroll-to-top';
-    button.style.cssText = `
-        position: fixed;
-        bottom: 30px;
-        right: 30px;
-        width: 50px;
-        height: 50px;
-        background-color: var(--primary-color);
-        color: white;
-        border: none;
-        border-radius: 50%;
-        cursor: pointer;
-        font-size: 24px;
-        display: none;
-        z-index: 99;
-        transition: all 0.3s ease;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-    `;
-    
-    document.body.appendChild(button);
-
-    window.addEventListener('scroll', () => {
-        if (window.pageYOffset > 300) {
-            button.style.display = 'block';
-        } else {
-            button.style.display = 'none';
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.style.animation = 'fadeInUp 0.6s ease forwards';
+            observer.unobserve(entry.target);
         }
     });
+}, observerOptions);
 
-    button.addEventListener('click', () => {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    });
-
-    button.addEventListener('mouseenter', () => {
-        button.style.backgroundColor = '#0052a3';
-        button.style.transform = 'scale(1.1)';
-    });
-
-    button.addEventListener('mouseleave', () => {
-        button.style.backgroundColor = 'var(--primary-color)';
-        button.style.transform = 'scale(1)';
-    });
-}
-
-createScrollToTopButton();
+document.querySelectorAll('.project-item, .about-grid, .contact').forEach(el => {
+    el.style.opacity = '0';
+    observer.observe(el);
+});
 
 // ===========================
 // CONSOLE MESSAGE
 // ===========================
 
-console.log('%c Welcome to Ivan\'s Portfolio! ', 'background: #667eea; color: white; font-size: 16px; padding: 10px;');
-console.log('Thank you for visiting! Feel free to check out the projects and get in touch.');
+console.log('%c Welcome to Ivan\'s Portfolio ', 'background: #1a1a1a; color: white; font-size: 14px; padding: 8px; border-radius: 4px;');
