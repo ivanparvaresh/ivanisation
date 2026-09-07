@@ -34,4 +34,23 @@
   if (printBtn) {
     printBtn.addEventListener("click", () => window.print());
   }
+
+  const linkBtn = document.querySelector("[data-share-link]");
+  if (linkBtn) {
+    const label = linkBtn.textContent;
+    let resetTimer;
+
+    linkBtn.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        linkBtn.textContent = "Copied";
+      } catch {
+        linkBtn.textContent = "Copy failed";
+      }
+      clearTimeout(resetTimer);
+      resetTimer = setTimeout(() => {
+        linkBtn.textContent = label;
+      }, 1800);
+    });
+  }
 })();

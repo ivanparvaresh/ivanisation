@@ -684,7 +684,7 @@ main,
   position: relative;
   z-index: 2;
   width: min(100% - 2rem, var(--article-max));
-  margin: 5.5rem auto 3rem;
+  margin: 5.5rem auto 1rem;
   padding: 2.25rem 2.25rem 2.75rem;
   background: rgba(247, 250, 251, 0.88);
   border: 1px solid var(--line);
@@ -736,6 +736,13 @@ main,
   gap: 0.45rem 0.65rem;
   font-size: 0.82rem;
   color: var(--muted);
+}
+
+.article-actions {
+  position: relative;
+  z-index: 2;
+  width: min(100% - 2rem, var(--article-max));
+  margin: 0 auto 3rem;
 }
 
 .prose {
@@ -1154,7 +1161,8 @@ main,
   .grain,
   .site-bar,
   .site-footer,
-  .skip-link {
+  .skip-link,
+  .article-actions {
     display: none !important;
   }
 
@@ -1204,7 +1212,8 @@ main,
   .grain,
   .site-bar,
   .site-footer,
-  .skip-link {
+  .skip-link,
+  .article-actions {
     display: none !important;
   }
 
