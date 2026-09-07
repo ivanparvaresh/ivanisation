@@ -1,4 +1,4 @@
-# Ivanisation - Personal Portfolio
+# Mohammad Hamrah - Personal Portfolio
 
 Welcome to my personal portfolio website. This site showcases my professional experience, projects, and skills.
 

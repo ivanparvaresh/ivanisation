@@ -1,7 +1,7 @@
 {
   "name": "ivanisation",
   "version": "1.0.0",
-  "description": "Ivan Parvaresh — personal resume site",
+  "description": "Mohammad Hamrah — personal resume site",
   "main": "index.html",
   "scripts": {
     "start": "python -m http.server 8000",
@@ -13,7 +13,7 @@
     "personal-website",
     "developer"
   ],
-  "author": "Ivan Parvaresh",
+  "author": "Mohammad Hamrah",
   "license": "MIT",
   "devDependencies": {
     "live-server": "^1.2.2"
