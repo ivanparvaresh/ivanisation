@@ -192,7 +192,7 @@
 
         <h3>Thin logs feel fine until an agent reads them</h3>
         <p>
-          <code>INFO POST /orders 200 142ms requestId=req_8f3a</code> is enough for uptime dashboards. It is useless for “why did we charge the customer twice?” or “why is <code>total</code> null in the JSON?” The agent needs the order id, the idempotency key, the branch that ran, and the response body (or its structured fields). Without that, it invents theories. With that, it finds the real bug.
+          <code>INFO POST /orders 200 142ms requestId=req_8f3a</code> is enough for uptime dashboards. It is useless for “why did we charge the customer twice?” or “why is <code>total</code> null in the JSON?” The agent needs the order id, the idempotency key, the branch that ran, and the response body (or its structured fields). Without that, it invents theories. With that, it can usually localize the real bug.
         </p>
 
         <h3>Log the response you actually returned</h3>
@@ -261,7 +261,7 @@
           </div>
         </figure>
         <p>
-          Vendors and OpenTelemetry help when you outgrow files and grep. They are optional. The mindset is not: <strong>comprehensible application logs</strong> and <strong>reachable stores</strong>.
+          Vendors and OpenTelemetry help when you outgrow files and grep — they are optional. The mindset is not optional: you still need <strong>comprehensible application logs</strong> and <strong>reachable stores</strong>.
         </p>
 
         <h2>How I actually log</h2>
@@ -273,12 +273,12 @@
         <ul>
           <li>Child logger per operation (<code>Checkout.Complete</code>, worker <code>operationId</code>).</li>
           <li>At the edge of every HTTP/worker call: <code>setContext({ requestId, spec, http|worker, principal })</code> so later lines inherit ids without re-threading them.</li>
-          <li>Levels that mean something: <code>info</code> for success path, <code>warn</code> for expected client/domain failures, <code>error</code> / <code>fatal</code> for unexpected server failures (fatal also alerts).</li>
+          <li>Levels that mean something: <code>info</code> for success path, <code>warn</code> for expected client/domain failures, <code>fatal</code> for unexpected server failures (and alert on fatal).</li>
           <li>JSON lines in production; pretty ANSI locally.</li>
           <li>Automatic redaction of sensitive keys (<code>password</code>, <code>token</code>, <code>authorization</code>, <code>cookie</code>, <code>api_key</code>, …) and light email masking before write.</li>
           <li>When an <code>AppError</code> is logged, the logger serializes <code>id</code>, <code>code</code>, <code>severity</code>, <code>meta</code>, <code>debug</code>, and <code>innerError</code> into the <code>error</code> field — so Cursor sees the same bag you threw.</li>
         </ul>
-        <p>Success path (edge):</p>
+        <p>Success path (edge) — set context once, then log the outcome fields the agent will need (full event shape is in the samples below):</p>
         <pre class="session-prompt"><code class="language-typescript">this.logger.setContext({
   requestId,
   spec: { operationId: this.spec.operationId },
@@ -287,6 +287,9 @@
 // ...
 this.logger.info(`${request.method} ${request.path} - ${status} - ${duration}ms`, {
   http: { status, duration },
+  input: { cartId, idempotencyKey },
+  orderId,
+  response: { orderId, paymentStatus, totalCents },
 })</code></pre>
         <p>Failure path (edge): expected failures are <code>warn</code>; true server failures are <code>fatal</code> — always with the error object attached:</p>
         <pre class="session-prompt"><code class="language-typescript">const appError = AppError.of(error)
@@ -323,7 +326,7 @@ if (appError.severity === 'SERVER_ERROR') {
               </tr>
               <tr>
                 <td><code>.withDebug({ ... })</code></td>
-                <td>Ops-only detail (token context, noisy internals)</td>
+                <td>Ops-only detail (downstream hop status, attempt counts, noisy payloads — never secrets)</td>
                 <td>No — stripped from the client response</td>
                 <td>Yes — logger keeps it on the error object</td>
               </tr>
@@ -523,7 +526,7 @@ Do this yourself — do not wait for me to paste more logs:
    and log the AppError at the edge (warn vs fatal by severity)
 
 Access:
-- local: docker compose logs or the log script already in @apps/api
+- local: docker compose logs or the log script in your API package
 - ids: requestId=req_8f3a orderId=ord_441 idempotencyKey=idem_77
 
 Constraints:
@@ -555,7 +558,7 @@ Constraints:
 
         <h3>Still redact</h3>
         <p>
-          Access without redaction is how useful logging becomes an incident. Full context means <strong>full decision/request context</strong>, not a credential dump. Put sensitive material in <code>debug</code> only when needed — and rely on logger redaction as a backstop, not the plan.
+          Access without redaction is how useful logging becomes an incident. Full context means <strong>full decision/request context</strong>, not a credential dump. Put sensitive ops detail in <code>debug</code> only when needed — not PII (names, emails, phone numbers, payment identifiers, and the like stay out or masked). Rely on logger redaction as a backstop, not the plan.
         </p>
 
         <h3>Still bound the fix</h3>
@@ -588,7 +591,7 @@ Constraints:
           Write enough context that a coding agent can review a request and immediately understand the exact response. Throw errors that carry <code>meta</code> and <code>debug</code> so the failure is self-describing in the log. Then give that agent access to the log store so it can query the neighborhood — same business key, surrounding requests, sibling workers — instead of waiting for you to act as a slow, lossy API.
         </p>
         <p>
-          <strong>Log for comprehension. Open for investigation.</strong> Do that for any application, and Cursor stops guessing about production — it reads it.
+          <strong>Log for comprehension. Open for investigation.</strong> Do that for any application, and Cursor guesses less about production — it has evidence to read.
         </p>
       </div>
     </article>

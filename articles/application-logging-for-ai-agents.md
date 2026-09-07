@@ -68,7 +68,7 @@ The test I use: *If I handed only this log line (or this request’s log group) 
 INFO POST /orders 200 142ms requestId=req_8f3a
 ```
 
-That is enough for uptime dashboards. It is useless for “why did we charge the customer twice?” or “why is `total` null in the JSON?” The agent needs the order id, the idempotency key, the branch that ran, and the response body (or its structured fields). Without that, it invents theories. With that, it finds the real bug.
+That is enough for uptime dashboards. It is useless for “why did we charge the customer twice?” or “why is `total` null in the JSON?” The agent needs the order id, the idempotency key, the branch that ran, and the response body (or its structured fields). Without that, it invents theories. With that, it can usually localize the real bug.
 
 ### Log the response you actually returned
 
@@ -110,12 +110,12 @@ Tell the agent: *Start from `req_8f3a`. Load that request’s logs. Query the sa
 
 ```text
 Write full context  →  agent understands this response in one read
-Open log access     →  agent queries neighbors when the story is incomplete
-Correlate with ids  →  neighborhood queries stay cheap and precise
-Redact by default   →  access stays safe enough to give the agent
+Open log access     →  agent can fetch without you pasting
+Query the neighborhood →  same business key · ± window · related services
+Fix with evidence   →  bounded change · review before commit
 ```
 
-Vendors and OpenTelemetry help when you outgrow files and grep. They are optional. The mindset is not: **comprehensible application logs** and **reachable stores**.
+Vendors and OpenTelemetry help when you outgrow files and grep — they are optional. The mindset is not optional: you still need **comprehensible application logs** and **reachable stores**.
 
 ---
 
@@ -127,12 +127,12 @@ Patterns I use across ordinary backends (APIs, workers, jobs). Names below are f
 
 - Child logger per operation (`Checkout.Complete`, worker `operationId`).
 - At the edge of every HTTP/worker call: `setContext({ requestId, spec, http|worker, principal })` so later lines inherit ids without re-threading them.
-- Levels that mean something: `info` for success path, `warn` for expected client/domain failures, `error` / `fatal` for unexpected server failures (fatal also alerts).
+- Levels that mean something: `info` for success path, `warn` for expected client/domain failures, `fatal` for unexpected server failures (and alert on fatal).
 - JSON lines in production; pretty ANSI locally.
 - Automatic redaction of sensitive keys (`password`, `token`, `authorization`, `cookie`, `api_key`, …) and light email masking before write.
 - When an `AppError` is logged, the logger serializes `id`, `code`, `severity`, `meta`, `debug`, and `innerError` into the `error` field — so Cursor sees the same bag you threw.
 
-Success path (edge):
+Success path (edge) — set context once, then log the outcome fields the agent will need (full event shape is in the samples below):
 
 ```ts
 this.logger.setContext({
@@ -143,6 +143,9 @@ this.logger.setContext({
 // ...
 this.logger.info(`${request.method} ${request.path} - ${status} - ${duration}ms`, {
   http: { status, duration },
+  input: { cartId, idempotencyKey },
+  orderId,
+  response: { orderId, paymentStatus, totalCents },
 })
 ```
 
@@ -167,7 +170,7 @@ I do not `throw new Error('not found')`. I throw a typed application error with 
 | Bag | Purpose | Safe for API clients? | Safe / useful in logs for Cursor? |
 | --- | --- | --- | --- |
 | `.withMeta({ ... })` | Business facts that explain the failure (ids, status, allowed vs actual) | Yes — included in the serialized error body | Yes |
-| `.withDebug({ ... })` | Ops-only detail (raw token fragment context, stack-ish internals, noisy payloads) | No — stripped from the client response | Yes — logger keeps it on the error object |
+| `.withDebug({ ... })` | Ops-only detail (downstream hop status, attempt counts, noisy payloads — never secrets) | No — stripped from the client response | Yes — logger keeps it on the error object |
 | `.withInnerError(err)` | Wrap an unknown/lower error | No (server errors hide internals) | Yes |
 
 Factory + chain:
@@ -400,7 +403,7 @@ Do this yourself — do not wait for me to paste more logs:
    and log the AppError at the edge (warn vs fatal by severity)
 
 Access:
-- local: docker compose logs or the log script already in @apps/api
+- local: docker compose logs or the log script in your API package
 - ids: requestId=req_8f3a orderId=ord_441 idempotencyKey=idem_77
 
 Constraints:
@@ -428,7 +431,7 @@ A short rule helps: *On production bugs, fetch logs by requestId, then query ±3
 
 ### Still redact
 
-Access without redaction is how useful logging becomes an incident. Full context means **full decision/request context**, not a credential dump. Put sensitive material in `debug` only when needed — and rely on logger redaction as a backstop, not the plan.
+Access without redaction is how useful logging becomes an incident. Full context means **full decision/request context**, not a credential dump. Put sensitive ops detail in `debug` only when needed — not PII (names, emails, phone numbers, payment identifiers, and the like stay out or masked). Rely on logger redaction as a backstop, not the plan.
 
 ### Still bound the fix
 
@@ -462,4 +465,4 @@ The useful change is not a new library. It is a different reader of the same app
 
 Write enough context that a coding agent can review a request and immediately understand the exact response. Throw errors that carry `meta` and `debug` so the failure is self-describing in the log. Then give that agent access to the log store so it can query the neighborhood — same business key, surrounding requests, sibling workers — instead of waiting for you to act as a slow, lossy API.
 
-**Log for comprehension. Open for investigation.** Do that for any application, and Cursor stops guessing about production — it reads it.
+**Log for comprehension. Open for investigation.** Do that for any application, and Cursor guesses less about production — it has evidence to read.
