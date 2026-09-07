@@ -1,142 +1,256 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Ivan Parvaresh - Full Stack Developer & Creative Problem Solver">
-    <title>Ivan Parvaresh - Portfolio</title>
-    <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Ivan Parvaresh — Staff Software Engineer. Two decades designing scalable systems, cloud architecture, and products that move institutions forward.">
+  <meta name="author" content="Ivan Parvaresh">
+  <title>Ivan Parvaresh — Ivanisation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Instrument+Serif:ital@0;1&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="container">
-            <a href="#" class="logo">Ivan</a>
-            <ul class="nav-menu">
-                <li><a href="#home" class="nav-link">Home</a></li>
-                <li><a href="#about" class="nav-link">About</a></li>
-                <li><a href="#work" class="nav-link">Work</a></li>
-                <li><a href="#contact" class="nav-link">Contact</a></li>
-            </ul>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <a href="#top" class="brand">Ivanisation</a>
+    <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span>
+    </button>
+    <nav class="site-nav" aria-label="Primary">
+      <a href="#about">About</a>
+      <a href="#journey">Journey</a>
+      <a href="#craft">Craft</a>
+      <a href="#words">Words</a>
+      <a href="#contact" class="nav-cta">Connect</a>
     </nav>
+  </header>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <h1>Hi, I'm Ivan</h1>
-                <p class="hero-subtitle">Full Stack Developer</p>
-                <p class="hero-description">I build clean, modern web applications with attention to detail and user experience.</p>
-                <a href="#work" class="cta-button">View My Work</a>
-            </div>
+  <main id="top">
+    <section class="hero" aria-label="Introduction">
+      <div class="hero-visual" aria-hidden="true">
+        <div class="orbit orbit-a"></div>
+        <div class="orbit orbit-b"></div>
+        <div class="orbit orbit-c"></div>
+        <div class="hero-grid"></div>
+        <div class="hero-glow"></div>
+      </div>
+      <div class="hero-copy">
+        <p class="hero-brand reveal">Ivan Parvaresh</p>
+        <h1 class="reveal delay-1">Systems that<br>scale with intent.</h1>
+        <p class="hero-lede reveal delay-2">
+          Staff Software Engineer with 20+ years shaping cloud architecture,
+          full-stack platforms, and teams that ship with clarity.
+        </p>
+        <div class="hero-actions reveal delay-3">
+          <a href="#journey" class="btn btn-primary">Explore the journey</a>
+          <a href="https://www.linkedin.com/in/mohammadhamrah/" class="btn btn-ghost" target="_blank" rel="noopener noreferrer">LinkedIn</a>
         </div>
+      </div>
+      <div class="hero-meta reveal delay-4">
+        <span>Capio · Staff Software Engineer</span>
+        <span>ApplyBoard · Software Engineer</span>
+        <span>Ankara · Remote</span>
+      </div>
     </section>
 
-    <!-- About Section -->
-    <section id="about" class="about">
-        <div class="container">
-            <h2>About</h2>
-            <div class="about-grid">
-                <div class="about-text">
-                    <p>I'm a passionate developer focused on creating meaningful digital solutions. With expertise in both frontend and backend development, I enjoy turning ideas into reality through clean, maintainable code.</p>
-                    <p>When I'm not coding, I'm learning new technologies, contributing to open source, or exploring creative problem-solving approaches.</p>
-                </div>
-                <div class="about-info">
-                    <div class="info-item">
-                        <h3>Skills</h3>
-                        <ul>
-                            <li>JavaScript / React</li>
-                            <li>Node.js / Python</li>
-                            <li>HTML / CSS</li>
-                            <li>REST APIs</li>
-                            <li>Git / GitHub</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+    <section id="about" class="section about">
+      <div class="section-inner">
+        <p class="eyebrow reveal">The through-line</p>
+        <h2 class="section-title reveal">
+          I design software the way architects design cities —
+          durable foundations, clear paths, room to grow.
+        </h2>
+        <div class="about-body reveal">
+          <p>
+            As a seasoned software engineer, I specialize in designing scalable,
+            high-performance systems and leading robust architecture across diverse domains.
+            My strengths span cloud infrastructure — especially AWS — full-stack development,
+            and DevOps practices that keep teams fast without sacrificing quality.
+          </p>
+          <p>
+            From marketplace platforms and institutional products to fraud detection systems,
+            I care about the craft behind the commit: patterns that age well,
+            teams that stay sharp, and products institutions can trust.
+          </p>
         </div>
+        <dl class="stats reveal">
+          <div>
+            <dt>20+</dt>
+            <dd>Years building software</dd>
+          </div>
+          <div>
+            <dt>Staff</dt>
+            <dd>Engineering at Capio</dd>
+          </div>
+          <div>
+            <dt>AWS</dt>
+            <dd>Solutions Architect Associate</dd>
+          </div>
+          <div>
+            <dt>2</dt>
+            <dd>Languages · EN &amp; FA</dd>
+          </div>
+        </dl>
+      </div>
     </section>
 
-    <!-- Work Section -->
-    <section id="work" class="work">
-        <div class="container">
-            <h2>Selected Work</h2>
-            <div class="projects-list">
-                <div class="project-item">
-                    <div class="project-content">
-                        <h3>Project One</h3>
-                        <p class="project-year">2024</p>
-                        <p>A brief description of your first project. What problem does it solve? What technologies did you use?</p>
-                        <div class="project-tech">
-                            <span>React</span>
-                            <span>Node.js</span>
-                            <span>MongoDB</span>
-                        </div>
-                    </div>
-                    <div class="project-link">
-                        <a href="#" class="link-arrow">View Project →</a>
-                    </div>
-                </div>
-
-                <div class="project-item">
-                    <div class="project-content">
-                        <h3>Project Two</h3>
-                        <p class="project-year">2024</p>
-                        <p>A brief description of your second project. What makes it unique? What was the challenge?</p>
-                        <div class="project-tech">
-                            <span>Next.js</span>
-                            <span>TypeScript</span>
-                            <span>Tailwind CSS</span>
-                        </div>
-                    </div>
-                    <div class="project-link">
-                        <a href="#" class="link-arrow">View Project →</a>
-                    </div>
-                </div>
-
-                <div class="project-item">
-                    <div class="project-content">
-                        <h3>Project Three</h3>
-                        <p class="project-year">2023</p>
-                        <p>A brief description of your third project. Focus on the impact and what you learned.</p>
-                        <div class="project-tech">
-                            <span>Python</span>
-                            <span>Flask</span>
-                            <span>PostgreSQL</span>
-                        </div>
-                    </div>
-                    <div class="project-link">
-                        <a href="#" class="link-arrow">View Project →</a>
-                    </div>
-                </div>
+    <section id="journey" class="section journey">
+      <div class="section-inner">
+        <p class="eyebrow reveal">Experience</p>
+        <h2 class="section-title reveal">A career written in systems.</h2>
+        <ol class="timeline">
+          <li class="timeline-item reveal">
+            <div class="timeline-when">
+              <time datetime="2025-02">Feb 2025 — Present</time>
+              <span class="place">Ontario, Canada · Remote</span>
             </div>
-        </div>
+            <div class="timeline-what">
+              <h3>Staff Software Engineer</h3>
+              <p class="org">Capio</p>
+              <p>Partnering with cross-functional teams to deliver high-quality products for institutions — architecture, execution, and the quiet rigor that keeps platforms reliable at scale.</p>
+            </div>
+          </li>
+          <li class="timeline-item reveal">
+            <div class="timeline-when">
+              <time datetime="2020-05">May 2020 — Present</time>
+              <span class="place">Türkiye</span>
+            </div>
+            <div class="timeline-what">
+              <h3>Software Engineer</h3>
+              <p class="org">ApplyBoard</p>
+              <p>Building products that help students and institutions connect. Deep work across AWS Serverless, marketplace integration platforms, and microservice patterns.</p>
+            </div>
+          </li>
+          <li class="timeline-item reveal">
+            <div class="timeline-when">
+              <time datetime="2018">2018</time>
+              <span class="place">Bursa, Türkiye</span>
+            </div>
+            <div class="timeline-what">
+              <h3>Technical Product Manager</h3>
+              <p class="org">StockMount</p>
+              <p>Bridging engineering and product — translating complex technical constraints into clear roadmaps and shippable outcomes.</p>
+            </div>
+          </li>
+          <li class="timeline-item reveal">
+            <div class="timeline-when">
+              <time datetime="2016-01">Jan 2016 — Sep 2017</time>
+              <span class="place">Tehran, Iran</span>
+            </div>
+            <div class="timeline-what">
+              <h3>Technical Manager</h3>
+              <p class="org">Favanaft</p>
+              <p>Led engineering direction and delivery. Built Sama and guided teams through complex, multi-project delivery with empathy and structure.</p>
+            </div>
+          </li>
+          <li class="timeline-item reveal">
+            <div class="timeline-when">
+              <time datetime="2014-10">Oct 2014 — Jan 2016</time>
+              <span class="place">Tehran, Iran</span>
+            </div>
+            <div class="timeline-what">
+              <h3>Senior Software Developer</h3>
+              <p class="org">Mobinnet</p>
+              <p>Senior development on production systems — solidifying the craft that later became architecture leadership.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
     </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <h2>Let's Work Together</h2>
-            <p>I'm always interested in hearing about new projects and opportunities.</p>
-            <div class="contact-links">
-                <a href="mailto:your-email@example.com" class="contact-link">Email</a>
-                <a href="https://github.com/ivanparvaresh" class="contact-link">GitHub</a>
-                <a href="https://linkedin.com/in/yourprofile" class="contact-link">LinkedIn</a>
-            </div>
+    <section id="craft" class="section craft">
+      <div class="section-inner">
+        <p class="eyebrow reveal">Craft &amp; focus</p>
+        <h2 class="section-title reveal">What I bring to the table.</h2>
+        <div class="craft-grid">
+          <article class="craft-block reveal">
+            <h3>Architecture</h3>
+            <p>Scalable, high-performance system design. Microservices, marketplace platforms, and patterns that survive real traffic and real teams.</p>
+          </article>
+          <article class="craft-block reveal">
+            <h3>Cloud &amp; DevOps</h3>
+            <p>AWS-first infrastructure — including Serverless — with the operational discipline to keep delivery continuous and calm.</p>
+          </article>
+          <article class="craft-block reveal">
+            <h3>Full-stack delivery</h3>
+            <p>From JavaScript and modern web stacks to .NET backends — end-to-end ownership when the product needs a single coherent mind.</p>
+          </article>
+          <article class="craft-block reveal">
+            <h3>Leadership</h3>
+            <p>Technical management that organizes the work and lets people show their full skill — humor and empathy included under pressure.</p>
+          </article>
         </div>
+
+        <div class="skills-strip reveal">
+          <span>JavaScript</span>
+          <span>.NET</span>
+          <span>AWS</span>
+          <span>Serverless</span>
+          <span>Microservices</span>
+          <span>Full-stack</span>
+          <span>DevOps</span>
+          <span>System Design</span>
+        </div>
+      </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <p>&copy; 2024 Ivan Parvaresh. All rights reserved.</p>
-    </footer>
+    <section id="words" class="section words">
+      <div class="section-inner">
+        <p class="eyebrow reveal">Recommendations</p>
+        <h2 class="section-title reveal">What people say when they’ve built with me.</h2>
+        <div class="quotes">
+          <blockquote class="quote reveal">
+            <p>
+              “Ivan is a kind of manager who will show what excellent project management
+              should be. His unique ability to organize the working process and let employees
+              demonstrate their professional skills’ full extent made Ivan our favorite.
+              A combination of humor and empathy helps to lift the spirit in stressful situations.”
+            </p>
+            <footer>
+              <cite>Amir H. Rahimi</cite>
+              <span>Senior Developer · reported to Ivan at Favanaft</span>
+            </footer>
+          </blockquote>
+          <blockquote class="quote reveal">
+            <p>
+              “I work with Mohammad for more than 14 years. He is the most talented software
+              architect I have ever worked with. He is expected to present awesome novel ideas
+              in every project. Despite his reluctance to programming, he is the fastest
+              programmer I have ever seen.”
+            </p>
+            <footer>
+              <cite>Farid AmirGhiasvand</cite>
+              <span>CEO at Zarbod · managed Ivan directly</span>
+            </footer>
+          </blockquote>
+        </div>
+      </div>
+    </section>
 
-    <script src="js/script.js"></script>
+    <section id="contact" class="section contact">
+      <div class="section-inner contact-inner">
+        <p class="eyebrow reveal">Next chapter</p>
+        <h2 class="section-title reveal">Let’s build something that lasts.</h2>
+        <p class="contact-lede reveal">
+          Open to conversations about architecture, platforms, and teams that care about craft.
+          Based in Ankara — collaborating remotely with Ontario and beyond.
+        </p>
+        <div class="contact-actions reveal">
+          <a href="https://www.linkedin.com/in/mohammadhamrah/" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Connect on LinkedIn</a>
+          <a href="https://github.com/ivanparvaresh" class="btn btn-ghost" target="_blank" rel="noopener noreferrer">GitHub</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>© <span id="year"></span> Ivan Parvaresh · Ivanisation</p>
+    <p class="footer-note">Designed for clarity. Built with intention.</p>
+  </footer>
+
+  <script src="js/script.js"></script>
 </body>
 </html>

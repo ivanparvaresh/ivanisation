@@ -1,73 +1,72 @@
-// ===========================
-// MOBILE MENU TOGGLE
-// ===========================
+(() => {
+  const header = document.querySelector(".site-header");
+  const toggle = document.querySelector(".nav-toggle");
+  const nav = document.querySelector(".site-nav");
+  const year = document.getElementById("year");
 
-const hamburger = document.querySelector('.hamburger');
-const navMenu = document.querySelector('.nav-menu');
-const navLinks = document.querySelectorAll('.nav-link');
+  if (year) {
+    year.textContent = String(new Date().getFullYear());
+  }
 
-if (hamburger) {
-    hamburger.addEventListener('click', () => {
-        navMenu.classList.toggle('active');
-    });
-}
+  // Sticky header state
+  const onScroll = () => {
+    if (!header) return;
+    header.classList.toggle("is-scrolled", window.scrollY > 24);
+  };
+  onScroll();
+  window.addEventListener("scroll", onScroll, { passive: true });
 
-// Close menu when clicking a link
-navLinks.forEach(link => {
-    link.addEventListener('click', () => {
-        navMenu.classList.remove('active');
-    });
-});
-
-// ===========================
-// SMOOTH SCROLL & ACTIVE LINK
-// ===========================
-
-window.addEventListener('scroll', () => {
-    let current = '';
-    
-    document.querySelectorAll('section').forEach(section => {
-        const sectionTop = section.offsetTop;
-        const sectionHeight = section.clientHeight;
-        
-        if (pageYOffset >= sectionTop - 200) {
-            current = section.getAttribute('id');
-        }
+  // Mobile nav
+  if (toggle && nav) {
+    toggle.addEventListener("click", () => {
+      const open = toggle.getAttribute("aria-expanded") === "true";
+      toggle.setAttribute("aria-expanded", String(!open));
+      nav.classList.toggle("is-open", !open);
     });
 
-    navLinks.forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('href').slice(1) === current) {
-            link.classList.add('active');
-        }
+    nav.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => {
+        toggle.setAttribute("aria-expanded", "false");
+        nav.classList.remove("is-open");
+      });
     });
-});
+  }
 
-// ===========================
-// SCROLL ANIMATIONS
-// ===========================
+  // Reveal on scroll
+  const reveals = document.querySelectorAll(".reveal");
+  if ("IntersectionObserver" in window) {
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            io.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
+    );
+    reveals.forEach((el) => io.observe(el));
+  } else {
+    reveals.forEach((el) => el.classList.add("is-visible"));
+  }
 
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -100px 0px'
-};
-
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.style.animation = 'fadeInUp 0.6s ease forwards';
-            observer.unobserve(entry.target);
-        }
-    });
-}, observerOptions);
-
-document.querySelectorAll('.project-item, .about-grid, .contact').forEach(el => {
-    el.style.opacity = '0';
-    observer.observe(el);
-});
-
-// ===========================
-// CONSOLE MESSAGE
-// ===========================
-
-console.log('%c Welcome to Ivan\'s Portfolio ', 'background: #1a1a1a; color: white; font-size: 14px; padding: 8px; border-radius: 4px;');
+  // Subtle parallax on hero visual
+  const glow = document.querySelector(".hero-glow");
+  const orbits = document.querySelectorAll(".orbit");
+  if (glow && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    window.addEventListener(
+      "pointermove",
+      (e) => {
+        const x = (e.clientX / window.innerWidth - 0.5) * 18;
+        const y = (e.clientY / window.innerHeight - 0.5) * 14;
+        glow.style.translate = `${x}px ${y}px`;
+        orbits.forEach((el, i) => {
+          const f = (i + 1) * 0.35;
+          el.style.translate = `${x * f}px ${y * f}px`;
+        });
+      },
+      { passive: true }
+    );
+  }
+})();
