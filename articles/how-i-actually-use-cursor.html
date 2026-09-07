@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>How I Actually Use Cursor — Mohammad Hamrah</title>
-  <meta name="description" content="What ~1,800 Cursor agent sessions taught me about shipping with an AI pair — a field note on directed execution, short corrections, and reusable prompting habits.">
+  <meta name="description" content="What ~5,400 Cursor agent sessions taught me about shipping with an AI pair — a field note on directed execution, short corrections, and reusable prompting habits.">
   <meta name="author" content="Mohammad Hamrah">
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   <meta name="theme-color" content="#0b6e63">
@@ -16,14 +16,14 @@
   <meta property="og:locale" content="en_US">
   <meta property="og:url" content="https://ivanisation.net/articles/how-i-actually-use-cursor.html">
   <meta property="og:title" content="How I Actually Use Cursor">
-  <meta property="og:description" content="What ~1,800 agent sessions taught me about shipping with an AI pair — and what you can steal from the pattern.">
+  <meta property="og:description" content="What ~5,400 agent sessions taught me about shipping with an AI pair — and what you can steal from the pattern.">
   <meta property="og:image" content="https://ivanisation.net/assets/images/og-image.png">
   <meta property="article:published_time" content="2026-09-08">
   <meta property="article:author" content="Mohammad Hamrah">
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="How I Actually Use Cursor">
-  <meta name="twitter:description" content="What ~1,800 agent sessions taught me about shipping with an AI pair — and what you can steal from the pattern.">
+  <meta name="twitter:description" content="What ~5,400 agent sessions taught me about shipping with an AI pair — and what you can steal from the pattern.">
   <meta name="twitter:image" content="https://ivanisation.net/assets/images/og-image.png">
 
   <link rel="icon" href="../assets/icons/favicon.svg" type="image/svg+xml">
@@ -49,7 +49,7 @@
     "@context": "https://schema.org",
     "@type": "Article",
     "headline": "How I Actually Use Cursor",
-    "description": "What ~1,800 Cursor agent sessions taught me about shipping with an AI pair — a field note on directed execution, short corrections, and reusable prompting habits.",
+    "description": "What ~5,400 Cursor agent sessions taught me about shipping with an AI pair — a field note on directed execution, short corrections, and reusable prompting habits.",
     "datePublished": "2026-09-08",
     "dateModified": "2026-09-08",
     "author": {
@@ -82,17 +82,17 @@
       <a href="../#experience">Experience</a>
       <a href="../#skills">Skills</a>
       <a href="../#contact">Contact</a>
-      <a href="how-i-actually-use-cursor.html" class="is-active" aria-current="page">Writing</a>
+      <a href="../notes.html" class="is-active">Notes</a>
     </nav>
   </header>
 
   <main id="top">
     <article id="article" class="article-sheet">
       <header class="article-header">
-        <p class="article-kicker">Writing</p>
+        <p class="article-kicker"><a href="../notes.html">Notes</a></p>
         <h1>How I Actually Use Cursor</h1>
         <p class="article-deck">
-          What ~1,800 agent sessions taught me about shipping with an AI pair — and what you can steal from the pattern.
+          What ~5,400 agent sessions taught me about shipping with an AI pair — and what you can steal from the pattern.
         </p>
         <p class="article-meta">
           <time datetime="2026-09-08">Sep 8, 2026</time>
@@ -108,7 +108,7 @@
             This is a field note on how I use Cursor to ship real work — not a feature tour of the product.
           </p>
           <p>
-            You will see the end-to-end process I follow (ticket first, small steps, fresh sessions, review, then PR), what my sessions actually look like across roughly 1,800 agent chats, and the operating rules I learned the hard way: guide the agent but let it edit, always review before commit, prefer Auto for known work, and keep context lean.
+            You will see the end-to-end process I follow (ticket first, small steps, fresh sessions, review, then PR), what my sessions actually look like across roughly 5,400 agent chats, a few fictionalized samples that open with goal / expected result / technical notes, and the operating rules I learned the hard way: guide the agent but let it edit, always review before commit, prefer Auto for known work, and keep context lean.
           </p>
           <p>The through-line is simple: <strong>ticket → small steps → fresh sessions → review &amp; refine → PR.</strong></p>
         </section>
@@ -327,6 +327,122 @@
         <p>
           About <strong>seven in ten</strong> follow-ups are under 100 characters. That feels like pair programming with a very fast junior who needs crisp redirects — not like outsourcing ownership.
         </p>
+
+        <h3>A few sample sessions (fictionalized)</h3>
+        <p>
+          The strongest openings in my history are not one-liners. They read like a ticket: a defined goal, expected outcomes (or acceptance criteria), and technical notes that bound the change. The prompts below keep that spirit and shape, but they are invented for a fictional product (“Harbor Desk”) — not copied from production work.
+        </p>
+
+        <figure class="article-figure">
+          <figcaption class="figure-caption">Figure 3. Four fictional Harbor Desk openings with goal, expected result, and technical notes</figcaption>
+          <div class="session-samples" role="group" aria-label="Fictionalized session samples">
+            <article class="session-sample">
+              <h4 class="session-sample-title">Playbooks as a small filesystem</h4>
+              <p class="session-sample-meta">Goal · expected capabilities · technical notes · <code>@</code> model anchor</p>
+              <ol class="session-thread">
+                <li class="session-turn">
+                  <span class="session-turn-label">You</span>
+                  <pre class="session-prompt">@apps/api/src/models/playbook.schema.ts
+
+Goal:
+1. Users should be able to manage multiple playbook pages
+2. Users should be able to organize pages into folders (including nested folders)
+3. Users should be able to view and edit a page
+4. Users should be able to browse all folders and pages in an explorer view
+
+Technical Notes:
+---------------------
+- We need a filesystem-style tree
+- On the frontend, we need a folder/page explorer with a light markdown editor
+- Users should be able to save with a Save button or Ctrl/Cmd+S</pre>
+                </li>
+              </ol>
+            </article>
+
+            <article class="session-sample">
+              <h4 class="session-sample-title">Structured fulfillment logging and stats</h4>
+              <p class="session-sample-meta">Goal · implementation expectations · technical notes · capture checklist</p>
+              <ol class="session-thread">
+                <li class="session-turn">
+                  <span class="session-turn-label">You</span>
+                  <pre class="session-prompt">Goal:
+Build a better logging system for fulfillment runs so we capture and store logs in a structured way we can process later.
+
+Implementations
+-----------------
+- We need an entity to store each run as a sequence of steps
+- We need an entity to capture execution stats (every execution's stats should include cost tags)
+- Workers should delegate jobs, capture logs, and store them
+- Workers should capture stats and store them
+- The UI should surface logs and stats in a clearer view
+----------------------------
+Notes:
+----------------------------
+- Tools should log their tasks by passing parameters to the logger; the logger stores them in the database
+- The worker should pass context parameters into every tool call
+- Tools should also call the logger whenever stats are captured
+--------------------------------
+logger = @apps/api/src/jobs/tools/run-logger.ts (not the application-level logger)
+tools = @apps/api/src/jobs/tools
+---------------------------------
+What could be captured:
+- Step title
+- Step command
+- Step logs
+- Step status
+
+What could be captured as stats:
+- Token usage
+- Model name
+- Run cost</pre>
+                </li>
+              </ol>
+            </article>
+
+            <article class="session-sample">
+              <h4 class="session-sample-title">Embeddable waitlist snippet for admins</h4>
+              <p class="session-sample-meta">Story · acceptance criteria · technical notes</p>
+              <ol class="session-thread">
+                <li class="session-turn">
+                  <span class="session-turn-label">You</span>
+                  <pre class="session-prompt">@apps/admin
+------------------
+Story:
+As a Workspace Admin, I want to copy the waitlist widget snippet and load it on my own website.
+
+ACs:
+- A /settings page contains a copyable box with the snippet script
+- The marketing landing page loads the widget for the default workspace
+
+Technical Notes:
+- We need a data migration to seed a default workspace
+- We need to build a new settings page</pre>
+                </li>
+              </ol>
+            </article>
+
+            <article class="session-sample">
+              <h4 class="session-sample-title">Freeze paid features when the plan is exhausted</h4>
+              <p class="session-sample-meta">Acceptance criteria · tech note with <code>@</code> line anchor</p>
+              <ol class="session-thread">
+                <li class="session-turn">
+                  <span class="session-turn-label">You</span>
+                  <pre class="session-prompt">ACs:
+- When the workspace plan is expired, or remaining credits are limited/exhausted, the drafting assistant is disabled (no new runs; assistant UI is not operable)
+- All AI features in the admin panel are disabled under the same condition
+- Library ingest (sources, library UI, and related uploads) is disabled under the same condition
+- Public booking flows for the workspace are disabled under the same condition
+- Usage and dashboard surfaces show a clear reason for the restriction (expired vs. credit-limited)
+- The Members page is read-only under the same condition (view allowed; create/update/destructive actions blocked)
+
+Tech notes:
+Use @apps/api/src/auth/entitlements.ts:14 to check the ACs</pre>
+                </li>
+              </ol>
+            </article>
+          </div>
+          <p class="figure-note">This is the longer side of the bimodal prompt habit: when blast radius matters, I write the contract up front — then refine in short bursts after the first diff.</p>
+        </figure>
 
         <h3>I encode preferences as rules</h3>
         <p>

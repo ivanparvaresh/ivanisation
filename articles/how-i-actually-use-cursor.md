@@ -1,6 +1,6 @@
 # How I Actually Use Cursor
 
-*What ~1,800 agent sessions taught me about shipping with an AI pair — and what you can steal from the pattern.*
+*What ~5,400 agent sessions taught me about shipping with an AI pair — and what you can steal from the pattern.*
 
 Sep 8, 2026 · Mohammad Hamrah
 
@@ -10,7 +10,7 @@ Sep 8, 2026 · Mohammad Hamrah
 
 This is a field note on how I use Cursor to ship real work — not a feature tour of the product.
 
-You will see the end-to-end process I follow (ticket first, small steps, fresh sessions, review, then PR), what my sessions actually look like across roughly 1,800 agent chats, and the operating rules I learned the hard way: guide the agent but let it edit, always review before commit, prefer Auto for known work, and keep context lean.
+You will see the end-to-end process I follow (ticket first, small steps, fresh sessions, review, then PR), what my sessions actually look like across roughly 5,400 agent chats, a few fictionalized samples that open with goal / expected result / technical notes, and the operating rules I learned the hard way: guide the agent but let it edit, always review before commit, prefer Auto for known work, and keep context lean.
 
 The through-line is simple: **ticket → small steps → fresh sessions → review & refine → PR.**
 
@@ -138,6 +138,97 @@ Nearly half of sessions become multi-turn. Follow-ups are usually not new essays
 - undo a wrong assumption
 
 About **seven in ten** follow-ups are under 100 characters. That feels like pair programming with a very fast junior who needs crisp redirects — not like outsourcing ownership.
+
+### A few sample sessions (fictionalized)
+
+The strongest openings in my history are not one-liners. They read like a ticket: a defined goal, expected outcomes (or acceptance criteria), and technical notes that bound the change. The prompts below keep that spirit and shape, but they are invented for a fictional product (“Harbor Desk”) — not copied from production work.
+
+**1. Playbooks as a small filesystem** — Goal · expected capabilities · technical notes · `@` model anchor
+
+```text
+@apps/api/src/models/playbook.schema.ts
+
+Goal:
+1. Users should be able to manage multiple playbook pages
+2. Users should be able to organize pages into folders (including nested folders)
+3. Users should be able to view and edit a page
+4. Users should be able to browse all folders and pages in an explorer view
+
+Technical Notes:
+---------------------
+- We need a filesystem-style tree
+- On the frontend, we need a folder/page explorer with a light markdown editor
+- Users should be able to save with a Save button or Ctrl/Cmd+S
+```
+
+**2. Structured fulfillment logging and stats** — Goal · implementation expectations · technical notes · capture checklist
+
+```text
+Goal:
+Build a better logging system for fulfillment runs so we capture and store logs in a structured way we can process later.
+
+Implementations
+-----------------
+- We need an entity to store each run as a sequence of steps
+- We need an entity to capture execution stats (every execution's stats should include cost tags)
+- Workers should delegate jobs, capture logs, and store them
+- Workers should capture stats and store them
+- The UI should surface logs and stats in a clearer view
+----------------------------
+Notes:
+----------------------------
+- Tools should log their tasks by passing parameters to the logger; the logger stores them in the database
+- The worker should pass context parameters into every tool call
+- Tools should also call the logger whenever stats are captured
+--------------------------------
+logger = @apps/api/src/jobs/tools/run-logger.ts (not the application-level logger)
+tools = @apps/api/src/jobs/tools
+---------------------------------
+What could be captured:
+- Step title
+- Step command
+- Step logs
+- Step status
+
+What could be captured as stats:
+- Token usage
+- Model name
+- Run cost
+```
+
+**3. Embeddable waitlist snippet for admins** — Story · acceptance criteria · technical notes
+
+```text
+@apps/admin
+------------------
+Story:
+As a Workspace Admin, I want to copy the waitlist widget snippet and load it on my own website.
+
+ACs:
+- A /settings page contains a copyable box with the snippet script
+- The marketing landing page loads the widget for the default workspace
+
+Technical Notes:
+- We need a data migration to seed a default workspace
+- We need to build a new settings page
+```
+
+**4. Freeze paid features when the plan is exhausted** — Acceptance criteria · tech note with `@` line anchor
+
+```text
+ACs:
+- When the workspace plan is expired, or remaining credits are limited/exhausted, the drafting assistant is disabled (no new runs; assistant UI is not operable)
+- All AI features in the admin panel are disabled under the same condition
+- Library ingest (sources, library UI, and related uploads) is disabled under the same condition
+- Public booking flows for the workspace are disabled under the same condition
+- Usage and dashboard surfaces show a clear reason for the restriction (expired vs. credit-limited)
+- The Members page is read-only under the same condition (view allowed; create/update/destructive actions blocked)
+
+Tech notes:
+Use @apps/api/src/auth/entitlements.ts:14 to check the ACs
+```
+
+This is the longer side of the bimodal prompt habit: when blast radius matters, I write the contract up front — then refine in short bursts after the first diff.
 
 ### I encode preferences as rules
 
