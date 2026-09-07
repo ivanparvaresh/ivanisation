@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Mohammad Hamrah - Staff Software Engineer">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e4ebef"/>
+      <stop offset="45%" stop-color="#edf2f4"/>
+      <stop offset="100%" stop-color="#dde7eb"/>
+    </linearGradient>
+    <radialGradient id="wash1" cx="12%" cy="18%" r="45%">
+      <stop offset="0%" stop-color="#0b6e63" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#0b6e63" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="wash2" cx="88%" cy="12%" r="40%">
+      <stop offset="0%" stop-color="#3c5f78" stop-opacity="0.16"/>
+      <stop offset="100%" stop-color="#3c5f78" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#wash1)"/>
+  <rect width="1200" height="630" fill="url(#wash2)"/>
+  <rect x="64" y="64" width="1072" height="502" rx="8" fill="#f7fafb" stroke="#101820" stroke-opacity="0.1" stroke-width="2"/>
+  <circle cx="112" cy="132" r="10" fill="#0b6e63"/>
+  <text x="112" y="220" font-family="Helvetica, Arial, sans-serif" font-size="72" font-weight="700" letter-spacing="-2.5" fill="#101820">Mohammad Hamrah</text>
+  <text x="112" y="280" font-family="Helvetica, Arial, sans-serif" font-size="28" font-weight="700" letter-spacing="4" fill="#0b6e63">STAFF SOFTWARE ENGINEER</text>
+  <text x="112" y="360" font-family="Helvetica, Arial, sans-serif" font-size="26" font-weight="500" fill="#2a3a45">Cloud architecture / Scalable systems / 20+ years leading engineering</text>
+  <text x="112" y="490" font-family="Helvetica, Arial, sans-serif" font-size="22" font-weight="500" fill="#5a6d78">ivanisation.net</text>
+</svg>

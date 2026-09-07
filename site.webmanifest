@@ -1,0 +1,24 @@
+{
+  "name": "Mohammad Hamrah",
+  "short_name": "Hamrah",
+  "description": "Staff Software Engineer — cloud architecture, scalable systems, and 20+ years of engineering leadership.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#edf2f4",
+  "theme_color": "#0b6e63",
+  "lang": "en",
+  "icons": [
+    {
+      "src": "/assets/icons/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/icons/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

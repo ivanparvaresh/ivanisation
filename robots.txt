@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ivanisation.net/sitemap.xml
