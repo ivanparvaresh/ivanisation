@@ -21,6 +21,10 @@ You will also see how I log in practice (structured context at the edge, warn vs
 
 The through-line: **log for comprehension, open for investigation.**
 
+**Disclaimer:** Observability products already ship AI that can investigate as soon as an error is raised — Sentry Seer, Datadog Bits AI, Dynatrace Davis, New Relic AI, Elastic’s AI Assistant, and similar. This note is not about replacing those. It is about how *you* structure application logs so a coding agent in your editor (or those same platform AIs) has enough evidence to reason from.
+
+For my personal projects — where I do not have a real logging / observability stack like those — troubleshooting is very simple: I copy the log event into Cursor. With enough context on the line, Cursor usually knows what to do next. Sometimes I add a short note (symptom, what I expected, which environment). Often the event alone is enough.
+
 ---
 
 ## The shift: logs used to be for you
