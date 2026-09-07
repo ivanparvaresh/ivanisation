@@ -14,6 +14,7 @@
   --font-display: "DM Sans", sans-serif;
   --font-body: "DM Sans", sans-serif;
   --max: 68rem;
+  --article-max: 52rem;
 }
 
 *,
@@ -682,9 +683,9 @@ main,
 .article-sheet {
   position: relative;
   z-index: 2;
-  width: min(100% - 2rem, 42rem);
+  width: min(100% - 2rem, var(--article-max));
   margin: 5.5rem auto 3rem;
-  padding: 2.25rem 2rem 2.75rem;
+  padding: 2.25rem 2.25rem 2.75rem;
   background: rgba(247, 250, 251, 0.88);
   border: 1px solid var(--line);
 }
@@ -1140,7 +1141,7 @@ main,
 
 @media (max-width: 640px) {
   .article-sheet {
-    width: min(100% - 1.5rem, 42rem);
+    width: min(100% - 1.5rem, var(--article-max));
     padding: 1.6rem 1.2rem 2rem;
     margin-top: 4.75rem;
   }

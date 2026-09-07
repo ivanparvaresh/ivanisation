@@ -1,0 +1,89 @@
+/* Syntax highlighting for article code blocks (Prism tokens). */
+
+.prose pre.session-prompt > code,
+.session-prompt > code {
+  display: block;
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+  font-size: inherit;
+  color: inherit;
+  font-family: inherit;
+  white-space: inherit;
+  word-break: inherit;
+}
+
+.session-prompt .token.comment,
+.session-prompt .token.prolog,
+.session-prompt .token.doctype {
+  color: var(--muted);
+  font-style: italic;
+}
+
+.session-prompt .token.punctuation {
+  color: #5a6d78;
+}
+
+.session-prompt .token.property,
+.session-prompt .token.tag,
+.session-prompt .token.constant,
+.session-prompt .token.symbol,
+.session-prompt .token.deleted {
+  color: #08554c;
+}
+
+.session-prompt .token.boolean,
+.session-prompt .token.number {
+  color: #9a3412;
+}
+
+.session-prompt .token.selector,
+.session-prompt .token.attr-name,
+.session-prompt .token.string,
+.session-prompt .token.char,
+.session-prompt .token.builtin,
+.session-prompt .token.inserted {
+  color: #0b6e63;
+}
+
+.session-prompt .token.operator,
+.session-prompt .token.entity,
+.session-prompt .token.url {
+  color: #2a3a45;
+}
+
+.session-prompt .token.atrule,
+.session-prompt .token.keyword,
+.session-prompt .token.attr-value {
+  color: #08554c;
+  font-weight: 600;
+}
+
+.session-prompt .token.function,
+.session-prompt .token.class-name {
+  color: #101820;
+}
+
+.session-prompt .token.regex,
+.session-prompt .token.important,
+.session-prompt .token.variable {
+  color: #9a3412;
+}
+
+.session-prompt-label {
+  display: block;
+  margin: 0.65rem 0 0.3rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.session-sample .session-prompt + .session-prompt-label {
+  margin-top: 0.85rem;
+}
+
+.session-sample .session-prompt + .session-prompt {
+  margin-top: 0.55rem;
+}
